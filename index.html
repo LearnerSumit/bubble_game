@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:"Gilroy";
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        #main{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(146, 209, 146);
+        }
+        #pannel{
+            width: 80%;
+            height: 80%;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        #ptop{
+            padding: 0px 30%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 12%;
+            background-color: rgb(78, 138, 78);
+            color: #fff;
+        }
+        .elem{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .box{
+            padding: 10px 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: 500;
+            color: rgb(33, 134, 95);
+        }
+        #pbottom{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            width: 100%;
+            height: 88%;
+        }
+        .bubble{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgb(73, 153, 73);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .bubble:hover{
+            background-color: rgb(20, 83, 20);
+            cursor: pointer;
+        }
+    </style>
+    <title>Bubble Hit Game</title>
+</head>
+<body>
+    <div id="main">
+        <div id="pannel">
+            <div id="ptop">
+                <div class="elem">
+                    <h3>Hit</h3>
+                    <div id="hitBox" class="box">5</div>
+                </div>
+                <div class="elem">
+                    <h3>Timer</h3>
+                    <div id="timerValue" class="box">60</div>
+                </div>
+                <div class="elem">
+                    <h3>Score</h3>
+                    <div id="ScoreVal" class="box">0</div>
+                </div>
+            </div>
+            <div id="pbottom">
+            </div>
+        </div>
+    </div>
+    <script>
+        var time=60;
+        var score=0;
+
+function increaseScore(){
+    score += 10;
+    document.querySelector("#ScoreVal").innerHTML = score;
+}
+
+function getNewhit(){
+    var hrn=Math.floor(Math.random()*10);
+    document.querySelector("#hitBox").innerHTML=hrn;
+}
+
+function makebubble(){
+    var cluster = "";
+for(var i = 0; i<=132; i++){
+    var rn = Math.floor(Math.random() * 10);
+    cluster +=`<div class="bubble">${rn}</div>`;
+}
+document.querySelector("#pbottom").innerHTML = cluster;
+}
+function RunTimer(){
+    var timerint=setInterval(function(){
+        if(time>0){
+        time--;
+        document.querySelector("#timerValue").innerHTML = time;
+        }
+        else{
+            clearInterval(timerint);
+            document.querySelector("#pbottom").innerHTML = "<h1>Game Over</h1>"; 
+            document.querySelector("#pbottom").innerHTML = `<h2>Total Score:${score}</h2>`;
+        }
+    },1000);
+}
+document.querySelector("#pbottom").addEventListener("click",function(details){
+ var clickednub=Number(details.target.textContent);
+ if (clickednub==Number(document.querySelector("#hitBox").textContent)){
+     increaseScore();
+     getNewhit();
+     makebubble();
+ }
+});
+
+makebubble();
+RunTimer();
+getNewhit();
+    </script>
+</body>
+</html>
